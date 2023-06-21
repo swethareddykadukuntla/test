@@ -1,35 +1,75 @@
-Helo World
-You can pass the expected value along with the input in the inlinedata as mentioned below
+    <DataTemplate x:Key="SmartEnumDisplayItemTemplate">
+        <telerik:RadComboBoxItem HeightRequest="30">
+            <Grid HorizontalOptions="Fill"
+                  VerticalOptions="Center">
+                <Label Text="{Binding Display}"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Center"
+                       LineBreakMode="TailTruncation"
+                       TextColor="{StaticResource PrimaryMainText}"
+                       WidthRequest="182"
+                       Margin="8,0,10,0" />
+            </Grid>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="MouseOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource RestMainControlFill}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </telerik:RadComboBoxItem>
+    </DataTemplate>
 
-[Theory]
-    [InlineData(1623672000, "2021-06-14T00:00:00")]
-    [InlineData(1655208000, "2022-06-14T00:00:00")]
-	
-	Then mock setup function as
-	
-	
-        dateTimeServiceMock.Setup(x => x.ConvertUnixtimeToET(unixTimestamp)).Returns(DateTime.Parse(expectedDateTimeString));
-		
-		using Moq;
-using Xunit;
+    <DataTemplate x:Key="SmartEnumDisplaySelectedItemTemplate">
+        <Grid HorizontalOptions="Fill"
+              VerticalOptions="Center"
+              BackgroundColor="{StaticResource RestMainControlFill}"
+              ColumnDefinitions="*, 24"
+              MinimumHeightRequest="30">
+            <Label Text="{Binding Display}"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Center"
+                   TextColor="{StaticResource PrimaryMainText}"
+                   Grid.Column="0"
+                   WidthRequest="180"
+                   Padding="8,0,0,0" />
+            <Image Source="checkmark.png"
+                   Aspect="AspectFit"
+                   BackgroundColor="Transparent"
+                   Grid.Column="1"
+                   WidthRequest="16"
+                   HeightRequest="16"
+                   Margin="0,7,8,7" />
+        </Grid>
 
-public class DateTimeServiceTests
-{
-    [Theory]
-    [InlineData(1623672000, "2021-06-14T00:00:00")]
-    [InlineData(1655208000, "2022-06-14T00:00:00")]
-    public void ConvertUnixtimeToET_ShouldReturnCorrectDateTime(long unixTimestamp, string expectedDateTimeString)
-    {
-        // Arrange
-        var dateTimeServiceMock = new Mock<IDateTimeService>();
-        dateTimeServiceMock.Setup(x => x.ConvertUnixtimeToET(unixTimestamp)).Returns(DateTime.Parse(expectedDateTimeString));
-        var dateTimeService = dateTimeServiceMock.Object;
+    </DataTemplate>
 
-        // Act
-        var actualDateTime = dateTimeService.ConvertUnixtimeToET(unixTimestamp);
+    <DataTemplate x:Key="SmartEnumDisplaySelectionBoxTemplate">
+        <Label Text="{Binding Display}"
+               Style="{DynamicResource CommonLabel}"
+               HorizontalOptions="Fill"
+               VerticalOptions="Center"
+               LineBreakMode="TailTruncation"
+               HeightRequest="24"
+               Margin="8,3,0,3" />
+    </DataTemplate>
 
-        // Assert
-        var expectedDateTime = DateTime.Parse(expectedDateTimeString);
-        Assert.Equal(expectedDateTime, actualDateTime);
-    }
-}
+
+
+Json
+  "property": "TradeTicketItem.Item.ActionType",
+      "type": "Selector",
+      "displayProps": {
+        "display": "Action"
+      },
+      "selectorProps": {
+        "itemsSource": "TradeActions",
+        "itemTemplate": "SmartEnumDisplayItemTemplate",
+        "selectedItemTemplate": "SmartEnumDisplaySelectedItemTemplate",
+        "selectionBoxTemplate": "SmartEnumDisplaySelectionBoxTemplate"
+
+      }
+    },
