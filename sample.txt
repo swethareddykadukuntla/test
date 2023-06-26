@@ -628,3 +628,183 @@ Json
 
 </ResourceDictionary>
 
+
+
+
+
+06/26
+
+readme file for novaform
+
+
+# Nova Form
+
+* [INTRODUCTION](#introduction)
+* [REQUIREMENTS](#requirements)
+* [ACCESS](#access)
+* [CONTRIBUTION GUIDELINES](#contribution-guidelines)
+* [INSTALLATION](#installation)
+* [USAGE](#usage)
+* [CONFIGURATION](#configuration)
+* [TROUBLESHOOTING](#troubleshooting)
+* [MAINTAINERS](#maintainers)
+
+## INTRODUCTION
+
+---------------------
+ - NovaForm is a dynamic (JSON based) form control for MAUI.
+ - It is a ContentView with a VerticalStackLayout using a [BindableLayout](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/layouts/bindablelayout?view=net-maui-7.0).
+ - This control uses a JSON config to auto-generate a list of editable fields. The input controls are all generated using DataTemplate Factories, similar to how the read-only data controls for the other Nova Controls are generated.
+ - The JSON config file's schema is largely modeled after [Angular Formly](https://formly.dev/), which is a popular, dynamic, JSON based form library for Angular.
+
+
+## REQUIREMENTS
+
+---------------------
+
+Prerequisites to build the module: Visual Studio 2022 with the .NET framework and the MAUI Workloads defined in the global.json file at the root of the repository.
+
+
+## ACCESS
+
+---------------------
+
+Request access to the LDAP group azgALMPR101600Developer_RESTR via [ALMX]
+
+## CONTRIBUTION GUIDELINES
+
+---------------------
+
+Developers should follow the standards outlined here: [ATP Standards]
+
+## INSTALLATION
+
+---------------------
+
+Build through Visual Studio 2022
+
+## USAGE
+
+---------------------
+
+The NovaForm control is defined by a JSON configuration file, which defines the fields to display and how to display them.
+
+### JSON
+
+- Note that for all instances of a "property" json field, this is a property path. So let's say the NovaForm is bound to an object called Person, which has a property called Address, and Address has a string property called City. To bind to the City property, the property value would be "Address.City".
+- The root JSON object is defined by [NovaFormConfig](/supernova/impls/src/Fmr.NovaUI/Form/Config/NovaFormConfig.cs).
+    - fields: List of fields, defined by [NovaFormFieldConfig](/supernova/impls/src/Fmr.NovaUI/Form/Config/NovaFormFieldConfig.cs)
+        - property: string - name of the property to display
+        - type: NovaFormDataType - bound to the [NovaFormDataType](/supernova/impls/src/Fmr.NovaUI.Annotations/Enums/NovaFormDataType.cs) enum. Specifies the type of input control to display for this field.
+        - displayProps: Display properties for this field and its editor, like the DisplayName, Placeholder text, etc. Defined by [NovaFormFieldDisplayPropsConfig](/supernova/impls/src/Fmr.NovaUI/Form/Config/NovaFormFieldDisplayPropsConfig.cs).
+            - display: string - The field's display name.
+            - placeholder: string - Text to display in the input control when there's no data yet.
+        - selectorProps: Defines the items to display in the dropdown when type is Selector. Defined by [NovaFormSelectorPropsConfig](/supernova/impls/src/Fmr.NovaUI/Form/Config/NovaFormSelectorPropsConfig.cs)
+            - There are 2 ways to define items for the dropdown:
+              - selectOptions: A static list of items defined in the json (see the Superpower property in the sample below). Note that to bind to the selected item, the property field must be of type [NovaFormFieldOption](/supernova/impls/src/Fmr.NovaUI.Annotations/Models/NovaFormFieldOption.cs)
+              - itemsSource: A binding path to a list of items in the form's Binding Context. If this is used, then you must also define the name of the templates used to display the data, using the itemTemplate, selectedItemTemplate, and selectionBoxTemplate properties. These DataTemplates must be added to either the control that holds the NovaForm control or the App resources (see the SuperheroOrigin property in the sample below. SuperheroOrigins is a list of enums in the binding context of the form control, which SuperheroOrigin represents the currently selected enum).
+        - symbolProps: Defines the behavior of the symbol entry box when type is "Symbol".
+          - itemsSource: A binding path to the list of symbol suggestions
+          - hasErrors: A binding path to a flag indicating if there are validation errors with the symbol entered by the user
+          - selectCommand - A binding path to the command when a user selects a symbol from the dropdown
+          - completeCommand - A binding path to the command when a user presses Enter (this and selectCommand can both point to the same command. In the future, this should be just one command)
+        - expression: Expressions provide a way to dynamically control certain aspects of a field using C# delegates. As of now, only a field's display name (DisplayProps.DisplayName) and its visibility (IsVisible) are supported.
+          - property: string - The path (in [NovaFormField](/supernova/impls/src/Fmr.NovaUI/Form/Fields/NovaFormField.cs)) to the property  set by the expression
+          - expression: string - A delegate that returns the value for the property. The delegate takes in 2 parameters. The first parameter (f in the Superpower field in the sample below) is the [NovaFormField](/supernova/impls/src/Fmr.NovaUI/Form/Fields/NovaFormField.cs) whose property is being set. The second parameter (d in the sample below) is the binding context of the form. This will generally be used more often, as it's typically the data you're displaying that dictates this type of dynamic data. So in the sample below, if the binding context's Superpower.Value is set to $$$, then the field's display name changes to Iron Man. Otherwise it's Superpower.
+
+### Sample JSON
+
+    {
+      "fields": [
+        {
+          "property": "FirstName",
+          "type": "Entry",
+          "displayProps": {
+            "display": "First"
+          }
+        },
+        {
+          "property": "LastName",
+          "type": "Entry",
+          "displayProps": {
+            "display": "Last"
+          }
+        },
+        {
+          "property": "Superpower",
+          "type": "Selector",
+          "displayProps": {
+            "display": "Superpower"
+          },
+          "selectorProps": {
+            "selectOptions": [
+              {
+                "display": "Super strength",
+                "value": "super_strength"
+              },
+              {
+                "display": "Radiation-based super strength",
+                "value": "radiation_strength"
+              },
+              {
+                "display": "Thunder",
+                "value": "thunder"
+              },
+              {
+                "display": "Lots and lots of money",
+                "value": "$$$"
+              }
+            ]
+          },
+          "expressions": [
+            {
+              "property": "DisplayProps.DisplayName",
+              "expression": "(f, d) => d.Superpower?.Value == \"$$$\" ? \"Iron Man\" : \"Superpower\""
+            }
+          ]
+          },
+        {
+          "property": "SuperheroOrigin",
+          "type": "Selector",
+          "displayProps": {
+            "display": "Origin"
+          },
+          "selectorProps": {
+            "itemsSource": "SuperheroOrigins",
+            "itemTemplate": "EnumItemTemplate",
+            "selectedItemTemplate": "EnumSelectedItemTemplate",
+            "selectionBoxTemplate": "EnumSelectionBoxTemplate"
+          }
+        }
+      ]
+    }
+
+### Metadata
+
+Unlike other Nova controls, NovaForm does not support metadata. All information about how a field in a form should be displayed will be defined in the json.
+
+### Developer Info
+
+1. To add support for a new data type:
+    - Add a new enum value to [NovaFormDataType](/supernova/impls/src/Fmr.NovaUI.Annotations/Enums/NovaFormDataType.cs)
+    - Add a class that inherits [NovaFormFieldDataTemplateFactory](/supernova/impls/src/Fmr.NovaUI/Form/Templates/Factories/NovaFormFieldDataTemplateFactory.cs) to create the DataTemplate in code. Add that type to the DI container. Use IValueConverters as necessary, and never set values like Text directly. Always set up bindings programmatically.
+
+## CONFIGURATION
+
+---------------------
+
+## TROUBLESHOOTING
+
+---------------------
+
+Please use this sections to add any known issues and steps to troubleshoot.
+
+## MAINTAINERS
+
+---------------------
+
+nirvanadevs@fmr.com
+
+[ATP Standards]: <https://confluence.fmr.com/pages/viewpage.action?spaceKey=AP002304&title=ATP+Standards>
+[ALMX]: <https://highway-alm.fmr.com/almx-ui/#/roles>
+
