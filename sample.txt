@@ -1,810 +1,288 @@
-    <DataTemplate x:Key="SmartEnumDisplayItemTemplate">
-        <telerik:RadComboBoxItem HeightRequest="30">
-            <Grid HorizontalOptions="Fill"
-                  VerticalOptions="Center">
-                <Label Text="{Binding Display}"
-                       HorizontalOptions="Fill"
-                       VerticalOptions="Center"
-                       LineBreakMode="TailTruncation"
-                       TextColor="{StaticResource PrimaryMainText}"
-                       WidthRequest="182"
-                       Margin="8,0,10,0" />
-            </Grid>
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
-                    <VisualState x:Name="MouseOver">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource RestMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-        </telerik:RadComboBoxItem>
-    </DataTemplate>
-
-    <DataTemplate x:Key="SmartEnumDisplaySelectedItemTemplate">
-        <Grid HorizontalOptions="Fill"
-              VerticalOptions="Center"
-              BackgroundColor="{StaticResource RestMainControlFill}"
-              ColumnDefinitions="*, 24"
-              MinimumHeightRequest="30">
-            <Label Text="{Binding Display}"
-                   HorizontalOptions="Fill"
-                   VerticalOptions="Center"
-                   TextColor="{StaticResource PrimaryMainText}"
-                   Grid.Column="0"
-                   WidthRequest="180"
-                   Padding="8,0,0,0" />
-            <Image Source="checkmark.png"
-                   Aspect="AspectFit"
-                   BackgroundColor="Transparent"
-                   Grid.Column="1"
-                   WidthRequest="16"
-                   HeightRequest="16"
-                   Margin="0,7,8,7" />
-        </Grid>
-
-    </DataTemplate>
-
-    <DataTemplate x:Key="SmartEnumDisplaySelectionBoxTemplate">
-        <Label Text="{Binding Display}"
-               Style="{DynamicResource CommonLabel}"
-               HorizontalOptions="Fill"
-               VerticalOptions="Center"
-               LineBreakMode="TailTruncation"
-               HeightRequest="24"
-               Margin="8,3,0,3" />
-    </DataTemplate>
-
-
-
-Json
-  "property": "TradeTicketItem.Item.ActionType",
-      "type": "Selector",
-      "displayProps": {
-        "display": "Action"
-      },
-      "selectorProps": {
-        "itemsSource": "TradeActions",
-        "itemTemplate": "SmartEnumDisplayItemTemplate",
-        "selectedItemTemplate": "SmartEnumDisplaySelectedItemTemplate",
-        "selectionBoxTemplate": "SmartEnumDisplaySelectionBoxTemplate"
-
-      }
-    },
-
-
-//button resource
-<?xml version="1.0" encoding="utf-8" ?>
-<ResourceDictionary x:Class="Fmr.NovaUI.Styles.Controls.ButtonResources"
-                    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:buttons="clr-namespace:Fmr.NovaUI.Buttons"
-                    xmlns:converters="using:Fmr.NovaUI.Converters"
-                    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-                    xmlns:themes="clr-namespace:Fmr.ThemesLibrary.Themes;assembly=Fmr.ThemesLibrary">
-
-    <ResourceDictionary.MergedDictionaries>
-        <themes:DarkTheme />
-    </ResourceDictionary.MergedDictionaries>
-
-    <converters:LinkDefinitionToBoolConverter x:Key="LinkDefinitionToBoolConverter" />
-
-    <!--  Button Styles  -->
-    <Style x:Key="ButtonCommonStyles"
-           TargetType="buttons:NovaButton">
-        <Setter Property="BorderWidth" Value="1" />
-        <Setter Property="FontAttributes" Value="None" />
-        <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="VerticalOptions" Value="Center" />
-        <Setter Property="CornerRadius" Value="4" />
-        <Setter Property="Padding" Value="6,4" />
-        <Setter Property="FontFamily" Value="FidelitySansBold" />
-        <Setter Property="FontSize" Value="14" />
-    </Style>
-
-    <Style x:Key="LargeButtonCommonStyles"
-           TargetType="buttons:NovaButton"
-           BasedOn="{StaticResource ButtonCommonStyles}">
-        <Setter Property="HeightRequest" Value="30" />
-    </Style>
-
-    <Style x:Key="NovaImageButtonCommonStyles"
-           TargetType="buttons:NovaImageButton">
-        <Setter Property="CornerRadius" Value="4" />
-        <Setter Property="Padding" Value="5, 5" />
-        <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="VerticalOptions" Value="Center" />
-        <Setter Property="WidthRequest" Value="26" />
-        <Setter Property="HeightRequest" Value="26" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
-
-    <Style x:Key="NovaLargeImageButtonCommonStyles"
-           TargetType="buttons:NovaImageButton">
-        <Setter Property="HeightRequest" Value="40" />
-        <Setter Property="WidthRequest" Value="40" />
-        <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="VerticalOptions" Value="Center" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
-    </Style>
-
-    <Style x:Key="AccentPrimary"
-           TargetType="buttons:NovaButton"
-           BasedOn="{StaticResource ButtonCommonStyles}">
-        <Setter Property="TextColor" Value="{StaticResource OverflowLayerFill}" />
-        <Setter Property="BorderColor" Value="{StaticResource RestControlAccent}" />
-        <Setter Property="BackgroundColor" Value="{StaticResource RestControlAccent}" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState Name="Normal" />
-                    <VisualState Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="Opacity" Value="0.8" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Focused">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource HoverControlAccent}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource DisabledMainText}" />
-                            <Setter Property="BorderColor" Value="{StaticResource DisabledMainControlFill}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource DisabledMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style x:Key="BasicTertiary"
-           TargetType="buttons:NovaButton"
-           BasedOn="{StaticResource ButtonCommonStyles}">
-        <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-        <Setter Property="BorderColor" Value="Transparent" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="Opacity" Value="0.786" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="BorderColor" Value="{StaticResource MediumOtherControlFill}" />
-                            <Setter Property="Opacity" Value="0.5442" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Focused">
-                        <VisualState.Setters>
-                            <Setter Property="BorderColor" Value="{StaticResource RestControlAccent}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="Opacity" Value="0.3628" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style x:Key="LargeBasicPrimaryIconLeft"
-           TargetType="buttons:NovaButton"
-           BasedOn="{StaticResource ButtonCommonStyles}">
-        <Setter Property="ContentLayout" Value="Left, 6" />
-        <Setter Property="Padding" Value="8,6,8,6" />
-        <Setter Property="HeightRequest" Value="30" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource RestMainControlFill}" />
-                            <Setter Property="BorderColor" Value="{StaticResource RestControlStroke}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Hover">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource HoverMainControlFill}" />
-                            <Setter Property="BorderColor" Value="{StaticResource RestControlStroke}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource SecondaryMainText}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource PressedMainControlFill}" />
-                            <Setter Property="BorderColor" Value="Transparent" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Focused">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource HoverMainControlFill}" />
-                            <Setter Property="BorderColor" Value="{StaticResource RestControlAccent}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource DisabledMainText}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource DisabledMainControlFill}" />
-                            <Setter Property="BorderColor" Value="{StaticResource RestControlStroke}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style x:Key="LargeAccentPrimary"
-           TargetType="buttons:NovaButton"
-           BasedOn="{StaticResource LargeButtonCommonStyles}">
-        <Setter Property="TextColor" Value="{StaticResource OverflowLayerFill}" />
-        <Setter Property="BorderColor" Value="{StaticResource RestControlAccent}" />
-        <Setter Property="BackgroundColor" Value="{StaticResource RestControlAccent}" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState Name="Normal" />
-                    <VisualState Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="Opacity" Value="0.8" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Focused">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource HoverControlAccent}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource DisabledMainText}" />
-                            <Setter Property="BorderColor" Value="{StaticResource DisabledMainControlFill}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource DisabledMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style x:Key="BasicPrimary"
-           TargetType="buttons:NovaButton"
-           BasedOn="{StaticResource ButtonCommonStyles}">
-        <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-        <Setter Property="BorderColor" Value="{StaticResource HoverMainControlFill}" />
-        <Setter Property="BackgroundColor" Value="{StaticResource RestMainControlFill}" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Focused">
-                        <VisualState.Setters>
-                            <Setter Property="BorderColor" Value="{StaticResource RestControlAccent}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource RestMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource DisabledMainText}" />
-                            <Setter Property="BorderColor" Value="{StaticResource DisabledMainControlFill}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource DisabledMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style x:Key="LargeBasicPrimary"
-           TargetType="buttons:NovaButton"
-           BasedOn="{StaticResource LargeButtonCommonStyles}">
-        <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-        <Setter Property="BorderColor" Value="{StaticResource HoverMainControlFill}" />
-        <Setter Property="BackgroundColor" Value="{StaticResource RestMainControlFill}" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Focused">
-                        <VisualState.Setters>
-                            <Setter Property="BorderColor" Value="{StaticResource RestControlAccent}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource RestMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource DisabledMainText}" />
-                            <Setter Property="BorderColor" Value="{StaticResource DisabledMainControlFill}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource DisabledMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <!--  Bid, Ask, Volume buttons style  -->
-    <Style x:Key="BidAskPriceButton"
-           TargetType="buttons:NovaButton">
-        <Setter Property="Margin" Value="5,0,0,0" />
-        <Setter Property="Padding" Value="3,0" />
-        <Setter Property="BackgroundColor" Value="{StaticResource HoverMainControlFill}" />
-        <Setter Property="BorderColor" Value="{StaticResource RestControlStroke}" />
-        <Setter Property="BorderWidth" Value="1" />
-        <Setter Property="CornerRadius" Value="3" />
-        <Setter Property="FontFamily" Value="FidelitySansRegular" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="VerticalOptions" Value="Center" />
-        <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState Name="Normal" />
-                    <VisualState Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource DisabledMainText}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style x:Key="BasicTertiaryIconOnly"
-           TargetType="buttons:NovaImageButton"
-           BasedOn="{StaticResource NovaImageButtonCommonStyles}">
-        <Setter Property="BorderColor" Value="Transparent" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="Opacity" Value="0.786" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="Opacity" Value="0.786" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Focused">
-                        <VisualState.Setters>
-                            <Setter Property="BorderColor" Value="{StaticResource RestControlAccent}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="Opacity" Value="0.3628" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <!--  TODO: Allen - Remove extraneous properties once common styles get updated  -->
-    <Style x:Key="ConnectionIndicatorImageButtonStyle"
-           TargetType="buttons:NovaImageButton"
-           BasedOn="{StaticResource NovaImageButtonCommonStyles}">
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="WidthRequest" Value="24" />
-        <Setter Property="HeightRequest" Value="24" />
-        <Setter Property="Aspect" Value="AspectFit" />
-        <Setter Property="Margin" Value="10,0" />
-        <Setter Property="BorderWidth" Value="0" />
-    </Style>
-
-    <Style x:Key="BrowserImageButtonStyle"
-           TargetType="buttons:NovaImageButton"
-           BasedOn="{StaticResource NovaImageButtonCommonStyles}">
-        <Setter Property="BorderWidth" Value="0" />
-        <Setter Property="BorderColor" Value="Transparent" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderColor" Value="Transparent" />
-                            <Setter Property="Scale" Value="1" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="Scale" Value=".8" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="PointerOver">
-                        <VisualState.Setters>
-                            <Setter Property="Background" Value="{StaticResource HoverMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState Name="Focused">
-                        <VisualState.Setters>
-                            <Setter Property="BorderColor" Value="{StaticResource RestControlAccent}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style x:Key="NoActivityImageButtonStyle"
-           TargetType="buttons:NovaImageButton"
-           BasedOn="{StaticResource NovaLargeImageButtonCommonStyles}">
-        <Style.Triggers>
-            <DataTrigger Value="True"
-                         TargetType="buttons:NovaImageButton"
-                         Binding="{Binding ShowNoFilterActivityResult}">
-                <Setter Property="Source" Value="filter_40_40.png" />
-            </DataTrigger>
-            <DataTrigger Value="False"
-                         TargetType="buttons:NovaImageButton"
-                         Binding="{Binding ShowNoFilterActivityResult}">
-                <Setter Property="Source" Value="time_clock_circle.png" />
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="ComboBoxClearButtonStyle"
-           TargetType="telerik:RadButton">
-        <Setter Property="TextColor" Value="{StaticResource ClearButtonFill}" />
-    </Style>
-
-    <Style TargetType="buttons:NovaToggleButton">
-        <Setter Property="CornerRadius" Value="3" />
-        <Setter Property="TextAlignment" Value="Start" />
-        <Setter Property="ControlTemplate">
-            <Setter.Value>
-                <ControlTemplate>
-                    <telerik:RadBorder x:Name="ButtonBorder"
-                                       Background="{StaticResource RestMainControlFill}"
-                                       BorderBrush="{StaticResource RestControlNoAlphaStroke}"
-                                       BorderThickness="1"
-                                       CornerRadius="{TemplateBinding CornerRadius}">
-
-                        <Label x:Name="ButtonLabel"
-                               Text="{TemplateBinding Text}"
-                               Style="{StaticResource CommonLabel}"
-                               HorizontalOptions="{TemplateBinding TextAlignment}"
-                               VerticalOptions="Center"
-                               TextColor="{StaticResource SecondaryMainText}"
-                               Margin="8,0" />
-
-                        <telerik:RadBorder.Triggers>
-                            <DataTrigger Value="True"
-                                         TargetType="telerik:RadBorder"
-                                         Binding="{TemplateBinding IsSelected}">
-                                <Setter Property="BorderBrush" Value="{StaticResource SelectedLayerStroke}" TargetName="ButtonBorder" />
-                                <Setter Property="Label.TextColor" Value="{StaticResource ActiveUnderlineFill}" TargetName="ButtonLabel" />
-                                <Setter Property="Label.FontAttributes" Value="Bold" TargetName="ButtonLabel" />
-                            </DataTrigger>
-                            <DataTrigger Value="False"
-                                         TargetType="telerik:RadBorder"
-                                         Binding="{TemplateBinding IsSelected}">
-                                <Setter Property="BorderBrush" Value="{StaticResource RestControlNoAlphaStroke}" TargetName="ButtonBorder" />
-                                <Setter Property="Label.TextColor" Value="{StaticResource SecondaryMainText}" TargetName="ButtonLabel" />
-                                <Setter Property="Label.FontAttributes" Value="None" TargetName="ButtonLabel" />
-                            </DataTrigger>
-                            <MultiTrigger TargetType="telerik:RadBorder">
-                                <MultiTrigger.Conditions>
-                                    <BindingCondition Value="True"
-                                                      Binding="{TemplateBinding IsSelected}" />
-                                    <BindingCondition Value="True"
-                                                      Binding="{TemplateBinding IsMouseOver}" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" Value="{StaticResource SelectedLayerStroke}" TargetName="ButtonBorder" />
-                            </MultiTrigger>
-                            <MultiTrigger TargetType="telerik:RadBorder">
-                                <MultiTrigger.Conditions>
-                                    <BindingCondition Value="True"
-                                                      Binding="{TemplateBinding IsSelected}" />
-                                    <BindingCondition Value="False"
-                                                      Binding="{TemplateBinding IsMouseOver}" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" Value="{StaticResource SelectedControlAccent}" TargetName="ButtonBorder" />
-                            </MultiTrigger>
-                            <MultiTrigger TargetType="telerik:RadBorder">
-                                <MultiTrigger.Conditions>
-                                    <BindingCondition Value="False"
-                                                      Binding="{TemplateBinding IsSelected}" />
-                                    <BindingCondition Value="True"
-                                                      Binding="{TemplateBinding IsMouseOver}" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" Value="{StaticResource HoverMainControlFill}" TargetName="ButtonBorder" />
-                                <Setter Property="Label.TextColor" Value="{StaticResource PrimaryMainText}" TargetName="ButtonLabel" />
-                            </MultiTrigger>
-                            <MultiTrigger TargetType="telerik:RadBorder">
-                                <MultiTrigger.Conditions>
-                                    <BindingCondition Value="False"
-                                                      Binding="{TemplateBinding IsSelected}" />
-                                    <BindingCondition Value="False"
-                                                      Binding="{TemplateBinding IsMouseOver}" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" Value="{StaticResource RestMainControlFill}" TargetName="ButtonBorder" />
-                            </MultiTrigger>
-                        </telerik:RadBorder.Triggers>
-                    </telerik:RadBorder>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="FlyoutMenuToolButtonStyle"
-           TargetType="telerik:RadButton">
-        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
-        <Setter Property="VerticalOptions" Value="Fill" />
-        <Setter Property="HorizontalContentAlignment" Value="Start" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="ContentLayout" Value="Left,15" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="TextColor" Value="{StaticResource PrimaryMainText}" />
-        <Setter Property="FontFamily" Value="FidelityFansRegular" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="WidthRequest" Value="281" />
-        <Setter Property="Padding" Value="11,9,0,9" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState x:Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource RestMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="PointerOver">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource HoverMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="Opacity" Value="0.5442" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style x:Key="FlyoutMenuStarButtonStyle"
-           TargetType="buttons:NovaImageButton"
-           BasedOn="{StaticResource NovaImageButtonCommonStyles}">
-        <Setter Property="WidthRequest" Value="36" />
-        <Setter Property="HeightRequest" Value="36" />
-        <Setter Property="Aspect" Value="Center" />
-        <Setter Property="BorderWidth" Value="0" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup Name="ButtonStates">
-                    <VisualState x:Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource RestMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="PointerOver">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource HoverMainControlFill}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="Pressed">
-                        <VisualState.Setters>
-                            <Setter Property="Opacity" Value="0.5442" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-</ResourceDictionary>
-
-
-
-
-
-06/26
-
-readme file for novaform
-
-
-# Nova Form
-
-* [INTRODUCTION](#introduction)
-* [REQUIREMENTS](#requirements)
-* [ACCESS](#access)
-* [CONTRIBUTION GUIDELINES](#contribution-guidelines)
-* [INSTALLATION](#installation)
-* [USAGE](#usage)
-* [CONFIGURATION](#configuration)
-* [TROUBLESHOOTING](#troubleshooting)
-* [MAINTAINERS](#maintainers)
-
-## INTRODUCTION
-
----------------------
- - NovaForm is a dynamic (JSON based) form control for MAUI.
- - It is a ContentView with a VerticalStackLayout using a [BindableLayout](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/layouts/bindablelayout?view=net-maui-7.0).
- - This control uses a JSON config to auto-generate a list of editable fields. The input controls are all generated using DataTemplate Factories, similar to how the read-only data controls for the other Nova Controls are generated.
- - The JSON config file's schema is largely modeled after [Angular Formly](https://formly.dev/), which is a popular, dynamic, JSON based form library for Angular.
-
-
-## REQUIREMENTS
-
----------------------
-
-Prerequisites to build the module: Visual Studio 2022 with the .NET framework and the MAUI Workloads defined in the global.json file at the root of the repository.
-
-
-## ACCESS
-
----------------------
-
-Request access to the LDAP group azgALMPR101600Developer_RESTR via [ALMX]
-
-## CONTRIBUTION GUIDELINES
-
----------------------
-
-Developers should follow the standards outlined here: [ATP Standards]
-
-## INSTALLATION
-
----------------------
-
-Build through Visual Studio 2022
-
-## USAGE
-
----------------------
-
-The NovaForm control is defined by a JSON configuration file, which defines the fields to display and how to display them.
-
-### JSON
-
-- Note that for all instances of a "property" json field, this is a property path. So let's say the NovaForm is bound to an object called Person, which has a property called Address, and Address has a string property called City. To bind to the City property, the property value would be "Address.City".
-- The root JSON object is defined by [NovaFormConfig](/supernova/impls/src/Fmr.NovaUI/Form/Config/NovaFormConfig.cs).
-    - fields: List of fields, defined by [NovaFormFieldConfig](/supernova/impls/src/Fmr.NovaUI/Form/Config/NovaFormFieldConfig.cs)
-        - property: string - name of the property to display
-        - type: NovaFormDataType - bound to the [NovaFormDataType](/supernova/impls/src/Fmr.NovaUI.Annotations/Enums/NovaFormDataType.cs) enum. Specifies the type of input control to display for this field.
-        - displayProps: Display properties for this field and its editor, like the DisplayName, Placeholder text, etc. Defined by [NovaFormFieldDisplayPropsConfig](/supernova/impls/src/Fmr.NovaUI/Form/Config/NovaFormFieldDisplayPropsConfig.cs).
-            - display: string - The field's display name.
-            - placeholder: string - Text to display in the input control when there's no data yet.
-        - selectorProps: Defines the items to display in the dropdown when type is Selector. Defined by [NovaFormSelectorPropsConfig](/supernova/impls/src/Fmr.NovaUI/Form/Config/NovaFormSelectorPropsConfig.cs)
-            - There are 2 ways to define items for the dropdown:
-              - selectOptions: A static list of items defined in the json (see the Superpower property in the sample below). Note that to bind to the selected item, the property field must be of type [NovaFormFieldOption](/supernova/impls/src/Fmr.NovaUI.Annotations/Models/NovaFormFieldOption.cs)
-              - itemsSource: A binding path to a list of items in the form's Binding Context. If this is used, then you must also define the name of the templates used to display the data, using the itemTemplate, selectedItemTemplate, and selectionBoxTemplate properties. These DataTemplates must be added to either the control that holds the NovaForm control or the App resources (see the SuperheroOrigin property in the sample below. SuperheroOrigins is a list of enums in the binding context of the form control, which SuperheroOrigin represents the currently selected enum).
-        - symbolProps: Defines the behavior of the symbol entry box when type is "Symbol".
-          - itemsSource: A binding path to the list of symbol suggestions
-          - hasErrors: A binding path to a flag indicating if there are validation errors with the symbol entered by the user
-          - selectCommand - A binding path to the command when a user selects a symbol from the dropdown
-          - completeCommand - A binding path to the command when a user presses Enter (this and selectCommand can both point to the same command. In the future, this should be just one command)
-        - expression: Expressions provide a way to dynamically control certain aspects of a field using C# delegates. As of now, only a field's display name (DisplayProps.DisplayName) and its visibility (IsVisible) are supported.
-          - property: string - The path (in [NovaFormField](/supernova/impls/src/Fmr.NovaUI/Form/Fields/NovaFormField.cs)) to the property  set by the expression
-          - expression: string - A delegate that returns the value for the property. The delegate takes in 2 parameters. The first parameter (f in the Superpower field in the sample below) is the [NovaFormField](/supernova/impls/src/Fmr.NovaUI/Form/Fields/NovaFormField.cs) whose property is being set. The second parameter (d in the sample below) is the binding context of the form. This will generally be used more often, as it's typically the data you're displaying that dictates this type of dynamic data. So in the sample below, if the binding context's Superpower.Value is set to $$$, then the field's display name changes to Iron Man. Otherwise it's Superpower.
-
-### Sample JSON
-
+namespace Fmr.Quote.Nunit.Tests;
+
+using Fmr.Nebula.Quote.Interfaces;
+using Fmr.Nebula.Quote.Models;
+using Fmr.NovaUI.Annotations.Constants;
+using Fmr.Quote.Streaming.Interfaces;
+using Fmr.Quote.Streaming.Models;
+using Fmr.Quote.Streaming.Parsers;
+using Fmr.Quote.Tests.Streaming.Parser;
+using Moq;
+using Assert = global::NUnit.Framework.Assert;
+
+[TestFixture]
+public class EquityParserTests : IClassFixture<SharedQuoteServiceFixture>, IClassFixture<GetJsonQuoteDataFixture>, IClassFixture<GetRawJsonQuoteDataFixture>
+{
+    private readonly SharedQuoteServiceFixture _fixture;
+    private readonly GetJsonQuoteDataFixture _jsonFixture;
+    private readonly GetRawJsonQuoteDataFixture _jsonRawFixture;
+    private readonly Mock<IFidelityDateTimeService> _mockDateTimeService;
+
+    private ParseSecurityQuoteData _securityQuoteData;
+    private bool _shouldUseRolloverValues;
+    private SecurityQuoteParser _securityQuoteParser;
+    private readonly IQuoteParsingFactory _quoteParsingFactory;
+
+    public EquityParserTests(SharedQuoteServiceFixture fixture, GetJsonQuoteDataFixture jsonFixture, GetRawJsonQuoteDataFixture jsonRaw)
     {
-      "fields": [
-        {
-          "property": "FirstName",
-          "type": "Entry",
-          "displayProps": {
-            "display": "First"
-          }
-        },
-        {
-          "property": "LastName",
-          "type": "Entry",
-          "displayProps": {
-            "display": "Last"
-          }
-        },
-        {
-          "property": "Superpower",
-          "type": "Selector",
-          "displayProps": {
-            "display": "Superpower"
-          },
-          "selectorProps": {
-            "selectOptions": [
-              {
-                "display": "Super strength",
-                "value": "super_strength"
-              },
-              {
-                "display": "Radiation-based super strength",
-                "value": "radiation_strength"
-              },
-              {
-                "display": "Thunder",
-                "value": "thunder"
-              },
-              {
-                "display": "Lots and lots of money",
-                "value": "$$$"
-              }
-            ]
-          },
-          "expressions": [
-            {
-              "property": "DisplayProps.DisplayName",
-              "expression": "(f, d) => d.Superpower?.Value == \"$$$\" ? \"Iron Man\" : \"Superpower\""
-            }
-          ]
-          },
-        {
-          "property": "SuperheroOrigin",
-          "type": "Selector",
-          "displayProps": {
-            "display": "Origin"
-          },
-          "selectorProps": {
-            "itemsSource": "SuperheroOrigins",
-            "itemTemplate": "EnumItemTemplate",
-            "selectedItemTemplate": "EnumSelectedItemTemplate",
-            "selectionBoxTemplate": "EnumSelectionBoxTemplate"
-          }
-        }
-      ]
+        _fixture = fixture;
+        _jsonFixture = jsonFixture;
+        _jsonRawFixture = jsonRaw;
+        _quoteParsingFactory = new QuoteParsingFactory(fixture.SharedQuoteService);
+        _securityQuoteParser = _quoteParsingFactory.GetQuoteParser(jsonFixture.ParsedSecurityQuote);
+        _mockDateTimeService = new Mock<IFidelityDateTimeService>();
     }
 
-### Metadata
+    [Test]
+    public void EtfParserTest()
+    {
+        Assert.IsInstanceOf<EquityParser>(_securityQuoteParser);
 
-Unlike other Nova controls, NovaForm does not support metadata. All information about how a field in a form should be displayed will be defined in the json.
+        Quote quote = _securityQuoteParser.ParseQuoteData(_jsonFixture.ParsedSecurityQuote,
+                                                          _shouldUseRolloverValues,
+                                                          _fixture.SharedQuoteService,
+                                                          _mockDateTimeService.Object);
+        Assert.NotNull(quote);
+        Assert.IsInstanceOf<EquityQuote>(quote);
+        AssertEtfQuote((EquityQuote)quote);
+    }
 
-### Developer Info
+    private void AssertEtfQuote(EquityQuote quote)
+    {
+        Assert.AreEqual("FINY", quote.LastExchange);
+        Assert.AreEqual("H", quote.LastExchangeAbbreviated);
+        Assert.AreEqual(string.Empty, quote.FinancialStat);
+        Assert.AreEqual(string.Empty, quote.TradeHaltCode);
+        Assert.AreEqual(string.Empty, quote.TradeHaltReason);
+        Assert.AreEqual("Technology Hardware, Storage & Peripherals", quote.Industry);
+        Assert.AreEqual("Technology Hardware, Storage & Peripherals1", quote.SubIndustry);
+        Assert.AreEqual(1.4316, quote.Dividend);
+        Assert.AreEqual("XNMS", quote.BidExchange);
+        Assert.AreEqual("S", quote.BidExchangeAbbreviated);
+        Assert.AreEqual("SPY", quote.FpsSymbol);
+        Assert.AreEqual("SPY", quote.UnderlyingSymbol);
+        Assert.True(quote.PrevTradeDate != DateTime.MinValue, "PrevTradeDate is not set");
+        Assert.True(19L == quote.AskSize, "AskSize doesn't match");
+        Assert.NotNull(quote.Security);
+        Assert.True(quote.Security.IsEtf);
+        Assert.AreEqual("SPY", quote.Security.Symbol);
+        Assert.AreEqual(925182116, quote.SharesOutstanding);
+        Assert.AreEqual(string.Empty, quote.SplitFactor);
+        Assert.False(quote.SplitDate.HasValue);
+    }
 
-1. To add support for a new data type:
-    - Add a new enum value to [NovaFormDataType](/supernova/impls/src/Fmr.NovaUI.Annotations/Enums/NovaFormDataType.cs)
-    - Add a class that inherits [NovaFormFieldDataTemplateFactory](/supernova/impls/src/Fmr.NovaUI/Form/Templates/Factories/NovaFormFieldDataTemplateFactory.cs) to create the DataTemplate in code. Add that type to the DI container. Use IValueConverters as necessary, and never set values like Text directly. Always set up bindings programmatically.
+    [Test]
+    public void ETFParserTest_shouldUseRolloverValues_IsTrue()
+    {
+        _shouldUseRolloverValues = true;
+        Quote quote = _securityQuoteParser.ParseQuoteData(_jsonFixture.ParsedSecurityQuote,
+                                                          _shouldUseRolloverValues,
+                                                          _fixture.SharedQuoteService,
+                                                          _mockDateTimeService.Object);
+        Assert.NotNull(quote);
+        Assert.IsInstanceOf<EquityQuote>(quote);
+        AssertETFQuote_UserRolloverValues((EquityQuote)quote);
+    }
 
-## CONFIGURATION
+    private void AssertETFQuote_UserRolloverValues(EquityQuote quote)
+    {
+        Assert.AreEqual("FINY", quote.LastExchange);
+        Assert.AreEqual("H", quote.LastExchangeAbbreviated);
+        Assert.AreEqual(string.Empty, quote.FinancialStat);
+        Assert.AreEqual(string.Empty, quote.TradeHaltCode);
+        Assert.AreEqual(string.Empty, quote.TradeHaltReason);
+        Assert.AreEqual("Technology Hardware, Storage & Peripherals", quote.Industry);
+        Assert.AreEqual("Technology Hardware, Storage & Peripherals1", quote.SubIndustry);
+        Assert.AreEqual(1.4316, quote.Dividend);
+        Assert.AreEqual("XNMS", quote.BidExchange);
+        Assert.AreEqual("S", quote.BidExchangeAbbreviated);
+        Assert.AreEqual("SPY", quote.FpsSymbol);
+        Assert.AreEqual("SPY", quote.UnderlyingSymbol);
+        Assert.True(quote.PrevTradeDate != DateTime.MinValue, "PrevTradeDate is not set");
+        Assert.True(19L == quote.AskSize, "AskSize doesn't match");
+        Assert.NotNull(quote.Security);
+        Assert.True(quote.Security.IsEtf);
+        Assert.AreEqual("SPY", quote.Security.Symbol);
 
----------------------
+        Assert.False(string.IsNullOrWhiteSpace(_jsonFixture.ParsedSecurityQuote.PrevClose));
+        Assert.AreEqual(190.9291, quote.RollingLastPrice);
 
-## TROUBLESHOOTING
+        Assert.False(string.IsNullOrWhiteSpace(_jsonFixture.ParsedSecurityQuote.PrevOpenPrice));
+        Assert.AreEqual(299.14, quote.OpenPrice);
 
----------------------
+        Assert.AreEqual(925182116, quote.SharesOutstanding);
+        Assert.AreEqual(string.Empty, quote.SplitFactor);
+        Assert.False(quote.SplitDate.HasValue);
+    }
 
-Please use this sections to add any known issues and steps to troubleshoot.
+    [Test]
+    public void EquityParser_Apple_Test()
+    {
+        ParseSecurityQuoteData parsedSecurityQuote = _jsonRawFixture.AppleParsedSecurityQuote;
 
-## MAINTAINERS
+        _securityQuoteParser = null;
+        _securityQuoteParser = _quoteParsingFactory.GetQuoteParser(parsedSecurityQuote);
+        Quote quote = _securityQuoteParser.ParseQuoteData(parsedSecurityQuote,
+                                                          _shouldUseRolloverValues,
+                                                          _fixture.SharedQuoteService,
+                                                          _mockDateTimeService.Object);
+        Assert.NotNull(quote);
+        Assert.IsInstanceOf<EquityQuote>(quote);
+        AssertEquityQuote((EquityQuote)quote);
+    }
 
----------------------
+    private void AssertEquityQuote(EquityQuote quote)
+    {
+        Assert.AreEqual("XNMS", quote.LastExchange);
+        Assert.AreEqual("S", quote.LastExchangeAbbreviated);
+        Assert.AreEqual(string.Empty, quote.FinancialStat);
+        Assert.AreEqual(string.Empty, quote.TradeHaltCode);
+        Assert.AreEqual(string.Empty, quote.TradeHaltReason);
+        Assert.AreEqual("Technology Hardware, Storage & Peripherals", quote.Industry);
+        Assert.AreEqual("Technology Hardware, Storage & Peripherals", quote.SubIndustry);
+        Assert.AreEqual(0.23, quote.Dividend);
+        Assert.AreEqual("ARCX", quote.BidExchange);
+        Assert.AreEqual("A", quote.BidExchangeAbbreviated);
+        Assert.AreEqual("AAPL", quote.FpsSymbol);
+        Assert.AreEqual("AAPL", quote.UnderlyingSymbol);
+        Assert.True(quote.PrevTradeDate != DateTime.MinValue, "PrevTradeDate is not set");
+        Assert.True(2L == quote.AskSize, "AskSize doesn't match");
+        Assert.NotNull(quote.Security);
+        Assert.False(quote.Security.IsEtf);
+        Assert.AreEqual("AAPL", quote.Security.Symbol);
 
-nirvanadevs@fmr.com
+        Assert.AreEqual(16070752000, quote.SharesOutstanding);
+        Assert.AreEqual("4:1", quote.SplitFactor);
+        Assert.True(quote.SplitDate.HasValue);
+        Assert.AreEqual("08/31/2020", quote.SplitDate.Value.ToString(FormatConstants.DateFormatUsDate));
+    }
 
-[ATP Standards]: <https://confluence.fmr.com/pages/viewpage.action?spaceKey=AP002304&title=ATP+Standards>
-[ALMX]: <https://highway-alm.fmr.com/almx-ui/#/roles>
+    [Test]
+    public void EquityParserTest_shouldUseRolloverValues_IsTrue()
+    {
+        _shouldUseRolloverValues = true;
+        ParseSecurityQuoteData parsedSecurityQuote = _jsonRawFixture.AppleParsedSecurityQuote;
 
+        _securityQuoteParser = null;
+        _securityQuoteParser = _quoteParsingFactory.GetQuoteParser(parsedSecurityQuote);
+        Quote quote = _securityQuoteParser.ParseQuoteData(parsedSecurityQuote,
+                                                          _shouldUseRolloverValues,
+                                                          _fixture.SharedQuoteService,
+                                                          _mockDateTimeService.Object);
+        Assert.NotNull(quote);
+        Assert.IsInstanceOf<EquityQuote>(quote);
+        AssertEquityQuote_UserRolloverValues((EquityQuote)quote, parsedSecurityQuote);
+    }
+
+    private void AssertEquityQuote_UserRolloverValues(EquityQuote quote, ParseSecurityQuoteData parseSecurityQuoteData)
+    {
+        Assert.AreEqual("XNMS", quote.LastExchange);
+        Assert.AreEqual("S", quote.LastExchangeAbbreviated);
+        Assert.AreEqual(string.Empty, quote.FinancialStat);
+        Assert.AreEqual(string.Empty, quote.TradeHaltCode);
+        Assert.AreEqual(string.Empty, quote.TradeHaltReason);
+        Assert.AreEqual("Technology Hardware, Storage & Peripherals", quote.Industry);
+        Assert.AreEqual("Technology Hardware, Storage & Peripherals", quote.SubIndustry);
+        Assert.AreEqual(0.23, quote.Dividend);
+        Assert.AreEqual("ARCX", quote.BidExchange);
+        Assert.AreEqual("A", quote.BidExchangeAbbreviated);
+        Assert.AreEqual("AAPL", quote.FpsSymbol);
+        Assert.AreEqual("AAPL", quote.UnderlyingSymbol);
+        Assert.True(quote.PrevTradeDate != DateTime.MinValue, "PrevTradeDate is not set");
+        Assert.True(2L == quote.AskSize, "AskSize doesn't match");
+        Assert.NotNull(quote.Security);
+        Assert.False(quote.Security.IsEtf);
+        Assert.AreEqual("AAPL", quote.Security.Symbol);
+
+        Assert.False(string.IsNullOrWhiteSpace(parseSecurityQuoteData.PrevClose));
+        Assert.AreEqual(155.47, quote.OpenPrice);
+
+        Assert.AreEqual(16070752000, quote.SharesOutstanding);
+        Assert.AreEqual("4:1", quote.SplitFactor);
+        Assert.True(quote.SplitDate.HasValue);
+        Assert.AreEqual("08/31/2020", quote.SplitDate.Value.ToString(FormatConstants.DateFormatUsDate));
+    }
+
+    [Test]
+    public void GetExchangeNameTest()
+    {
+        TestEquityParser testQuityParser = new();
+        string exchangeName = string.Empty;
+        string ret = testQuityParser.TestGetExchangeName(exchangeName);
+        Assert.NotNull(ret);
+        Assert.True(ret == "N/A");
+
+        //dummy statement, just to inject SharedQuoteService into parser
+        _ = testQuityParser.ParseQuoteData(_jsonFixture.ParsedSecurityQuote,
+                                           _shouldUseRolloverValues,
+                                           _fixture.SharedQuoteService,
+                                           _mockDateTimeService.Object);
+
+        exchangeName = "Q";
+        ret = testQuityParser.TestGetExchangeName(exchangeName);
+        Assert.NotNull(ret);
+        Assert.True(ret == "NASDAQ-NMS");
+    }
+
+    [Test]
+    public void EtfRollingLastFieldsParserTest()
+    {
+        Assert.IsInstanceOf<EquityParser>(_securityQuoteParser);
+
+        Quote quote = _securityQuoteParser.ParseQuoteData(_jsonFixture.ParsedSecurityQuote,
+                                                          _shouldUseRolloverValues,
+                                                          _fixture.SharedQuoteService,
+                                                          _mockDateTimeService.Object);
+        Assert.NotNull(quote);
+        Assert.IsInstanceOf<EquityQuote>(quote);
+        AssertEtfQuoteRollingLastFields((EquityQuote)quote);
+    }
+
+    private static void AssertEtfQuoteRollingLastFields(EquityQuote quote)
+    {
+        Assert.AreEqual(190.9291, quote.RollingLastPrice);
+        Assert.AreEqual(200, quote.RollingLastSize);
+        DateTime dateVal = new(2023, 07, 14);
+        if (quote.RollingLastDate != null)
+        {
+            Assert.AreEqual(dateVal, quote.RollingLastDate.Value.Date);
+        }
+        if (quote.RollingLastTime != null)
+        {
+            Assert.AreEqual(quote.RollingLastTime, new DateTime(2023, 07, 14, 10, 14, 49));
+        }
+    }
+}
+
+/// <summary>
+/// Test class to allow access to protected member in EquityParser
+/// </summary>
+internal class TestEquityParser : EquityParser
+{
+    public string TestGetExchangeName(string exchangeName)
+    {
+        return GetExchangeName(exchangeName);
+    }
+}
+
+
+namespace Fmr.Quote.Tests.Streaming.Parser;
+
+using System;
+using Fmr.Quote.Streaming.Interfaces;
+using Fmr.Quote.Streaming.Services;
+
+public class SharedQuoteServiceFixture : IDisposable
+{
+    public SharedQuoteServiceFixture()
+    {
+        SharedQuoteService = new SharedQuoteService();
+    }
+
+    public void Dispose()
+    {
+        SharedQuoteService.Dispose();
+    }
+
+    public ISharedQuoteService SharedQuoteService { get; }
+}
